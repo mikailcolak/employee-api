@@ -8,10 +8,10 @@
 		<version>2.3.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.employee-api</groupId>
+	<groupId>com.employee</groupId>
 	<artifactId>employee-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>employee-api</name>
+	<name>Employee Api</name>
 	<description>Test project for Spring Boot</description>
 
 	<properties>
