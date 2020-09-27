@@ -34,7 +34,7 @@ public class CompanyController {
     @GetMapping("/")
     public CollectionModel<EntityModel<Company>> all() {
 
-        List<EntityModel<Company>> employees = repository
+        var employees = repository
             .findAll()
             .stream()
             .map(assembler::toModel)
@@ -46,7 +46,7 @@ public class CompanyController {
     @PostMapping("/")
     public ResponseEntity<?> newEmployee(@RequestBody Company newEmployee) {
 
-        EntityModel<Company> entityModel = assembler.toModel(repository.save(newEmployee));
+        var entityModel = assembler.toModel(repository.save(newEmployee));
 
         return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
     }
@@ -56,7 +56,7 @@ public class CompanyController {
     @GetMapping("/{id}")
     public EntityModel<Company> one(@PathVariable Long id) throws CompanyNotFoundException {
 
-        Company company = repository
+        var company = repository
             .findById(id)
             .orElseThrow(() -> new CompanyNotFoundException(id));
 
@@ -76,7 +76,7 @@ public class CompanyController {
                 return repository.save(newCompany);
             });
 
-        EntityModel<Company> entityModel = assembler.toModel(updatedCompany);
+        var entityModel = assembler.toModel(updatedCompany);
 
         return ResponseEntity
             .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())

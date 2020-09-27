@@ -15,7 +15,7 @@ public class DefaultController {
     @GetMapping
     public RepresentationModel<?> index() {
 
-        RepresentationModel<?> rootModel = new RepresentationModel<>();
+        var rootModel = new RepresentationModel<>();
         rootModel.add(linkTo(methodOn(EmployeeController.class).all()).withRel("employees"));
         rootModel.add(linkTo(methodOn(CompanyController.class).all()).withRel("companies"));
 

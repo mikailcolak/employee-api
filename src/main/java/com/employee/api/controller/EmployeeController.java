@@ -45,7 +45,7 @@ public class EmployeeController {
     @PostMapping("/")
     public ResponseEntity<?> newEmployee(@RequestBody Employee newEmployee) {
 
-        EntityModel<Employee> entityModel = assembler.toModel(repository.save(newEmployee));
+        var entityModel = assembler.toModel(repository.save(newEmployee));
 
         return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
     }
@@ -55,7 +55,7 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public EntityModel<Employee> one(@PathVariable Long id) throws EmployeeNotFoundException {
 
-        Employee employee = repository
+        var employee = repository
             .findById(id)
             .orElseThrow(() -> new EmployeeNotFoundException(id));
 
@@ -80,7 +80,7 @@ public class EmployeeController {
                 return repository.save(newEmployee);
             });
 
-        EntityModel<Employee> entityModel = assembler.toModel(updatedEmployee);
+        var entityModel = assembler.toModel(updatedEmployee);
 
         return ResponseEntity
             .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
