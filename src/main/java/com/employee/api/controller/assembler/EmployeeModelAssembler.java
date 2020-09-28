@@ -2,6 +2,7 @@ package com.employee.api.controller.assembler;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
+import com.employee.api.controller.CompanyController;
 import com.employee.api.controller.EmployeeController;
 import com.employee.api.model.Employee;
 import org.springframework.hateoas.EntityModel;
@@ -17,6 +18,7 @@ public class EmployeeModelAssembler implements RepresentationModelAssembler<Empl
             return EntityModel.of(
                 employee,
                 linkTo(methodOn(EmployeeController.class).one(employee.getId())).withSelfRel(),
+                linkTo(methodOn(CompanyController.class).one(employee.getCompanyId())).withRel("company"),
                 linkTo(methodOn(EmployeeController.class).all()).withRel("employees")
             );
         } catch (Exception ex) {
