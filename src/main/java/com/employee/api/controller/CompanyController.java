@@ -34,19 +34,19 @@ public class CompanyController {
     @GetMapping("/")
     public CollectionModel<EntityModel<Company>> all() {
 
-        var employees = repository
+        var companies = repository
             .findAll()
             .stream()
             .map(assembler::toModel)
             .collect(Collectors.toList());
 
-        return CollectionModel.of(employees, linkTo(methodOn(EmployeeController.class).all()).withSelfRel());
+        return CollectionModel.of(companies, linkTo(methodOn(CompanyController.class).all()).withSelfRel());
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> newEmployee(@RequestBody Company newEmployee) {
+    public ResponseEntity<?> newCompany(@RequestBody Company newCompany) {
 
-        var entityModel = assembler.toModel(repository.save(newEmployee));
+        var entityModel = assembler.toModel(repository.save(newCompany));
 
         return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
     }
@@ -64,7 +64,7 @@ public class CompanyController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> replaceEmployee(@RequestBody Company newCompany, @PathVariable Long id) {
+    public ResponseEntity<?> replaceCompany(@RequestBody Company newCompany, @PathVariable Long id) {
 
         var updatedCompany = repository.findById(id)
             .map(company -> {
@@ -84,7 +84,7 @@ public class CompanyController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
+    public ResponseEntity<?> deleteCompany(@PathVariable Long id) {
 
         repository.deleteById(id);
 
