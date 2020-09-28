@@ -42,6 +42,18 @@ public class EmployeeController {
         return CollectionModel.of(employees, linkTo(methodOn(EmployeeController.class).all()).withSelfRel());
     }
 
+    @GetMapping("/by-company/{id}")
+    public CollectionModel<EntityModel<Employee>> allByCompanyId(@PathVariable Long id) {
+
+        var employees = repository
+            .findAllByCompanyId(id)
+            .stream()
+            .map(assembler::toModel) //
+            .collect(Collectors.toList());
+
+        return CollectionModel.of(employees, linkTo(methodOn(EmployeeController.class).all()).withSelfRel());
+    }
+
     @PostMapping("/")
     public ResponseEntity<?> newEmployee(@RequestBody Employee newEmployee) {
 
