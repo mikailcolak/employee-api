@@ -1,6 +1,7 @@
 package com.employee.api.model;
 
 public class ErrorResponse {
+
     private String message;
 
     public ErrorResponse(String message) {
@@ -14,4 +15,5 @@ public class ErrorResponse {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }
