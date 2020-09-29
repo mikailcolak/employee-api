@@ -4,12 +4,14 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import com.employee.api.controller.CompanyController;
 import com.employee.api.model.Company;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class CompanyModelAssembler implements RepresentationModelAssembler<Company, EntityModel<Company>> {
 
     @Override
@@ -21,6 +23,7 @@ public class CompanyModelAssembler implements RepresentationModelAssembler<Compa
                 linkTo(methodOn(CompanyController.class).all(Pageable.unpaged())).withRel("companies")
             );
         } catch (Exception ex) {
+            log.error("Unhandled exception occurred while assembling Employee model", ex);
             return EntityModel.of(company);
         }
     }
