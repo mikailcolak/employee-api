@@ -23,7 +23,7 @@ public class CompanyModelAssembler implements RepresentationModelAssembler<Compa
                 linkTo(methodOn(CompanyController.class).all(Pageable.unpaged())).withRel("companies")
             );
         } catch (Exception ex) {
-            log.error("Unhandled exception occurred while assembling Employee model", ex);
+            log.error("An unexpected error occurred while assembling Company model", ex);
             return EntityModel.of(company);
         }
     }

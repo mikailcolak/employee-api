@@ -25,7 +25,7 @@ public class EmployeeModelAssembler implements RepresentationModelAssembler<Empl
                 linkTo(methodOn(EmployeeController.class).all(Pageable.unpaged())).withRel("employees")
             );
         } catch (Exception ex) {
-            log.error("Unhandled exception occurred while assembling Employee model", ex);
+            log.error("An unexpected error occurred while assembling Employee model", ex);
             return EntityModel.of(employee);
         }
     }
