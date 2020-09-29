@@ -44,7 +44,7 @@ public class EmployeeController {
         return PagedModel.of(employees, linkTo(methodOn(EmployeeController.class).all(pageable)).withSelfRel());
     }
 
-    @GetMapping("/by-company/{id}")
+    @GetMapping("/by-company-id/{id}")
     public CollectionModel<EntityModel<Employee>> allByCompanyId(@PathVariable Long id) {
 
         var employees = repository
