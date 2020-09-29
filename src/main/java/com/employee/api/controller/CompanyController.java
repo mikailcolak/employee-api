@@ -3,6 +3,7 @@ package com.employee.api.controller;
 import com.employee.api.controller.assembler.CompanyModelAssembler;
 import com.employee.api.controller.exception.CompanyNotFoundException;
 import com.employee.api.model.Company;
+import com.employee.api.model.GenericResponse;
 import com.employee.api.repository.CompanyRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.CollectionModel;
@@ -87,11 +88,12 @@ public class CompanyController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCompany(@PathVariable Long id) {
+    public ResponseEntity<?> deleteCompany(@PathVariable Long id) throws CompanyNotFoundException {
 
+        if (!repository.existsById(id)) throw new CompanyNotFoundException(id);
         repository.deleteById(id);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(new GenericResponse(String.format("Company with id %d has been deleted.", id)));
     }
 
 }

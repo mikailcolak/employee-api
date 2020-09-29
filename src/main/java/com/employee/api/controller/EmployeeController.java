@@ -3,6 +3,7 @@ package com.employee.api.controller;
 import com.employee.api.controller.assembler.EmployeeModelAssembler;
 import com.employee.api.controller.exception.EmployeeNotFoundException;
 import com.employee.api.model.Employee;
+import com.employee.api.model.GenericResponse;
 import com.employee.api.repository.EmployeeRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.CollectionModel;
@@ -104,11 +105,11 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
+    public ResponseEntity<?> deleteEmployee(@PathVariable Long id) throws EmployeeNotFoundException {
 
+        if (!repository.existsById(id)) throw new EmployeeNotFoundException(id);
         repository.deleteById(id);
-
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(new GenericResponse(String.format("Employee with id %d has been deleted.", id)));
     }
 
 }
