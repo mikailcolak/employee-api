@@ -1,5 +1,6 @@
 package com.employee.api.controller;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,8 @@ public class DefaultController {
     public RepresentationModel<?> index() {
 
         var rootModel = new RepresentationModel<>();
-        rootModel.add(linkTo(methodOn(EmployeeController.class).all()).withRel("employees"));
-        rootModel.add(linkTo(methodOn(CompanyController.class).all()).withRel("companies"));
+        rootModel.add(linkTo(methodOn(EmployeeController.class).all(Pageable.unpaged())).withRel("employees"));
+        rootModel.add(linkTo(methodOn(CompanyController.class).all(Pageable.unpaged())).withRel("companies"));
 
         return rootModel;
     }

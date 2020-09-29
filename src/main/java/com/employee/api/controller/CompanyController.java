@@ -4,9 +4,11 @@ import com.employee.api.controller.assembler.CompanyModelAssembler;
 import com.employee.api.controller.exception.CompanyNotFoundException;
 import com.employee.api.model.Company;
 import com.employee.api.repository.CompanyRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,15 +33,15 @@ public class CompanyController {
     }
 
     @GetMapping("/")
-    public CollectionModel<EntityModel<Company>> all() {
+    public CollectionModel<EntityModel<Company>> all(Pageable pageable) {
 
         var companies = repository
-            .findAll()
+            .findAll(pageable)
             .stream()
             .map(assembler::toModel)
             .collect(Collectors.toList());
 
-        return CollectionModel.of(companies, linkTo(methodOn(CompanyController.class).all()).withSelfRel());
+        return PagedModel.of(companies, linkTo(methodOn(CompanyController.class).all(pageable)).withSelfRel());
     }
 
     @PostMapping("/")

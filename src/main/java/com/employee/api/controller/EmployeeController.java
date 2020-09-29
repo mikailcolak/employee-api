@@ -4,9 +4,11 @@ import com.employee.api.controller.assembler.EmployeeModelAssembler;
 import com.employee.api.controller.exception.EmployeeNotFoundException;
 import com.employee.api.model.Employee;
 import com.employee.api.repository.EmployeeRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,15 +33,15 @@ public class EmployeeController {
     }
 
     @GetMapping("/")
-    public CollectionModel<EntityModel<Employee>> all() {
+    public CollectionModel<EntityModel<Employee>> all(Pageable pageable) {
 
         var employees = repository
-            .findAll()
+            .findAll(pageable)
             .stream()
             .map(assembler::toModel) //
             .collect(Collectors.toList());
 
-        return CollectionModel.of(employees, linkTo(methodOn(EmployeeController.class).all()).withSelfRel());
+        return PagedModel.of(employees, linkTo(methodOn(EmployeeController.class).all(pageable)).withSelfRel());
     }
 
     @GetMapping("/by-company/{id}")
@@ -51,7 +53,7 @@ public class EmployeeController {
             .map(assembler::toModel) //
             .collect(Collectors.toList());
 
-        return CollectionModel.of(employees, linkTo(methodOn(EmployeeController.class).all()).withSelfRel());
+        return CollectionModel.of(employees, linkTo(methodOn(EmployeeController.class).all(Pageable.unpaged())).withSelfRel());
     }
 
     @PostMapping("/")
