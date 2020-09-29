@@ -45,10 +45,10 @@ public class EmployeeController {
     }
 
     @GetMapping("/by-company-id/{id}")
-    public CollectionModel<EntityModel<Employee>> allByCompanyId(@PathVariable Long id) {
+    public CollectionModel<EntityModel<Employee>> allByCompanyId(@PathVariable Long id, Pageable pageable) {
 
         var employees = repository
-            .findAllByCompanyId(id)
+            .findAllByCompanyId(id, pageable)
             .stream()
             .map(assembler::toModel) //
             .collect(Collectors.toList());
