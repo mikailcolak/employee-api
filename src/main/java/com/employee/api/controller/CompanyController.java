@@ -47,7 +47,9 @@ public class CompanyController {
 
         var entityModel = assembler.toModel(repository.save(newCompany));
 
-        return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
+        return ResponseEntity
+            .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+            .body(entityModel);
     }
 
     // Single item
