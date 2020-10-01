@@ -1,19 +1,23 @@
 package com.employee.api.model;
 
-public class GenericResponse {
+public class GenericResponse<T> {
 
-    private String message;
-
-    public GenericResponse(String message) {
-        this.message = message;
+    public static <K> GenericResponse<K> from(K value) {
+        return new GenericResponse<K>(value);
     }
 
-    public String getMessage() {
-        return message;
+    private T value;
+
+    public GenericResponse(T value) {
+        this.value = value;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public T getValue() {
+        return value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
     }
 
 }
