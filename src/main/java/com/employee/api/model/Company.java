@@ -53,7 +53,7 @@ public class Company {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    protected Object clone() {
         return new Company(
             id,
             name
