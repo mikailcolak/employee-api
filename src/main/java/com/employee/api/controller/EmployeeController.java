@@ -109,7 +109,7 @@ public class EmployeeController {
 
         if (!repository.existsById(id)) throw new EmployeeNotFoundException(id);
         repository.deleteById(id);
-        return ResponseEntity.ok(new GenericResponse(String.format("Employee with id %d has been deleted.", id)));
+        return ResponseEntity.ok(GenericResponse.from(String.format("Employee with id %d has been deleted.", id)));
     }
 
 }

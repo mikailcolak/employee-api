@@ -93,7 +93,7 @@ public class CompanyController {
         if (!repository.existsById(id)) throw new CompanyNotFoundException(id);
         repository.deleteById(id);
 
-        return ResponseEntity.ok(new GenericResponse(String.format("Company with id %d has been deleted.", id)));
+        return ResponseEntity.ok(GenericResponse.from(String.format("Company with id %d has been deleted.", id)));
     }
 
 }
