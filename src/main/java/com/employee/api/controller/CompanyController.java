@@ -33,7 +33,7 @@ public class CompanyController {
         this.assembler = assembler;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public CollectionModel<EntityModel<Company>> all(Pageable pageable) {
 
         var companies = repository
@@ -45,7 +45,7 @@ public class CompanyController {
         return PagedModel.of(companies, linkTo(methodOn(CompanyController.class).all(pageable)).withSelfRel());
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<?> newCompany(@RequestBody Company newCompany) {
 
         var entityModel = assembler.toModel(repository.save(newCompany));
