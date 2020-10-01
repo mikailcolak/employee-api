@@ -45,6 +45,12 @@ public class CompanyController {
         return PagedModel.of(companies, linkTo(methodOn(CompanyController.class).all(pageable)).withSelfRel());
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<?> count() {
+        return ResponseEntity
+            .ok(GenericResponse.from(repository.count()));
+    }
+
     @PostMapping
     public ResponseEntity<?> newCompany(@RequestBody Company newCompany) {
 
