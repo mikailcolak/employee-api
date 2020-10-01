@@ -70,7 +70,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<?> countByCompanyId() {
+    public ResponseEntity<?> count() {
         return ResponseEntity
             .ok(GenericResponse.from(repository.count()));
     }
