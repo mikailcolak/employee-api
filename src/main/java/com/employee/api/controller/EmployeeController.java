@@ -57,6 +57,12 @@ public class EmployeeController {
         return CollectionModel.of(employees, linkTo(methodOn(EmployeeController.class).all(Pageable.unpaged())).withSelfRel());
     }
 
+    @GetMapping("/avg-salary-by-company-id/{id}")
+    public ResponseEntity<?> averageSalaryByCompanyId(@PathVariable Long id) {
+        return ResponseEntity
+            .ok(GenericResponse.from(repository.averageSalaryByCompanyId(id)));
+    }
+
     @PostMapping
     public ResponseEntity<?> newEmployee(@RequestBody Employee newEmployee) {
 
