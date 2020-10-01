@@ -11,4 +11,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Query("SELECT e FROM Employee e WHERE e.companyId = ?1")
     Page<Employee> findAllByCompanyId(Long id, Pageable pageable);
 
+    @Query("SELECT COUNT(e) FROM Employee e WHERE e.companyId = ?1")
+    Long countByCompanyId(Long id);
+
+    @Query("SELECT AVG(e.salary) FROM Employee e WHERE e.companyId = ?1")
+    float averageSalaryByCompanyId(Long id);
+
 }
