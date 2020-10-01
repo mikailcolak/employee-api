@@ -63,6 +63,18 @@ public class EmployeeController {
             .ok(GenericResponse.from(repository.averageSalaryByCompanyId(id)));
     }
 
+    @GetMapping("/count-by-company-id/{id}")
+    public ResponseEntity<?> countByCompanyId(@PathVariable Long id) {
+        return ResponseEntity
+            .ok(GenericResponse.from(repository.countByCompanyId(id)));
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<?> countByCompanyId() {
+        return ResponseEntity
+            .ok(GenericResponse.from(repository.count()));
+    }
+
     @PostMapping
     public ResponseEntity<?> newEmployee(@RequestBody Employee newEmployee) {
 
