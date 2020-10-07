@@ -57,7 +57,7 @@ public class EmployeeControllerTests {
     public void allByCompanyId() throws Exception {
 
         var request = RequestEntity
-            .get(uri("by-company-id/10?page=0&size=1"))
+            .get(uri("by-company-id/1?page=0&size=1"))
             .accept(MediaType.APPLICATION_JSON)
             .build();
 
@@ -103,7 +103,7 @@ public class EmployeeControllerTests {
     public void one() throws Exception {
 
         var request = RequestEntity
-            .get(uri("11")) // get TEST2 with id 11
+            .get(uri("2")) // get TEST2 with id 2
             .accept(MediaType.APPLICATION_JSON)
             .build();
 
@@ -122,7 +122,7 @@ public class EmployeeControllerTests {
     public void replaceEmployee() throws Exception {
 
         var request = RequestEntity
-            .put(uri("11")) // update TEST2 with id 11
+            .put(uri("2")) // update TEST2 with id 2
             .accept(MediaType.APPLICATION_JSON)
             .body(
                 new Employee()
@@ -156,7 +156,7 @@ public class EmployeeControllerTests {
     public void deleteEmployee() throws Exception {
 
         var request = RequestEntity
-            .delete(uri("10")) // delete TEST1 with id 10
+            .delete(uri("1")) // delete TEST1 with id 1
             .accept(MediaType.APPLICATION_JSON)
             .build();
 
@@ -164,7 +164,7 @@ public class EmployeeControllerTests {
         var response = restTemplate.exchange(request, responseType);
 
         var checkRequest = RequestEntity
-            .get(uri("10")) // get TEST with id 10
+            .get(uri("1")) // get TEST with id 1
             .accept(MediaType.APPLICATION_JSON)
             .build();
 

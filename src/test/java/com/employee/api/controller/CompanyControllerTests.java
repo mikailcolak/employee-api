@@ -76,7 +76,7 @@ public class CompanyControllerTests {
     public void one() throws Exception {
 
         var request = RequestEntity
-            .get(uri("10")) // get EBF with id 10
+            .get(uri("1")) // get EBF with id 1
             .accept(MediaType.APPLICATION_JSON)
             .build();
 
@@ -95,7 +95,7 @@ public class CompanyControllerTests {
     public void replaceCompany() throws Exception {
 
         var request = RequestEntity
-            .put(uri("10")) // update EBF with id 10
+            .put(uri("1")) // update EBF with id 1
             .accept(MediaType.APPLICATION_JSON)
             .body(new Company(1L, "EBF_UPDATED"));
 
@@ -114,7 +114,7 @@ public class CompanyControllerTests {
     public void deleteCompany() throws Exception {
 
         var request = RequestEntity
-            .delete(uri("10")) // delete EBF with id 10
+            .delete(uri("1")) // delete EBF with id 1
             .accept(MediaType.APPLICATION_JSON)
             .build();
 
@@ -122,7 +122,7 @@ public class CompanyControllerTests {
         var response = restTemplate.exchange(request, responseType);
 
         var checkRequest = RequestEntity
-            .get(uri("10")) // get EBF with id 10
+            .get(uri("1")) // get EBF with id 1
             .accept(MediaType.APPLICATION_JSON)
             .build();
 
