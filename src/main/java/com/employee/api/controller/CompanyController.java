@@ -5,6 +5,7 @@ import com.employee.api.controller.exception.CompanyNotFoundException;
 import com.employee.api.model.Company;
 import com.employee.api.model.GenericResponse;
 import com.employee.api.repository.CompanyRepository;
+import com.employee.api.repository.EmployeeRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -24,13 +25,16 @@ public class CompanyController {
 
     private final CompanyRepository repository;
     private final CompanyModelAssembler assembler;
+    private final EmployeeRepository employeeRepository;
 
     public CompanyController(
         CompanyRepository repository,
-        CompanyModelAssembler assembler
+        CompanyModelAssembler assembler,
+        EmployeeRepository employeeRepository
     ) {
         this.repository = repository;
         this.assembler = assembler;
+        this.employeeRepository = employeeRepository;
     }
 
     @GetMapping
@@ -98,6 +102,7 @@ public class CompanyController {
 
         if (!repository.existsById(id)) throw new CompanyNotFoundException(id);
         repository.deleteById(id);
+        employeeRepository.deleteAllByCompanyId(id);
 
         return ResponseEntity.ok(GenericResponse.from(String.format("Company with id %d has been deleted.", id)));
     }
