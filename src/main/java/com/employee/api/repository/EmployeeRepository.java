@@ -16,7 +16,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Query("SELECT COUNT(e) FROM Employee e WHERE e.companyId = ?1")
     Long countByCompanyId(Long id);
 
-    @Query("SELECT AVG(e.salary) FROM Employee e WHERE e.companyId = ?1")
+    @Query("SELECT COALESCE(AVG(e.salary), 0) FROM Employee e WHERE e.companyId = ?1")
     float averageSalaryByCompanyId(Long id);
 
     @Transactional
